@@ -36,8 +36,10 @@ def text_generator(state_dict):
         args.batch_size = 1
     assert args.nsamples % args.batch_size == 0
     
-    if seed is None:
+    if args.seed is None:
         seed = random.randint(0, 2147483647)
+    else:
+        seed = args.seed
     
     print('Seed:',seed)
     
