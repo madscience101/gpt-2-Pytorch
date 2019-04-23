@@ -25,6 +25,8 @@ def text_generator(state_dict):
     parser.add_argument("--length", type=int, default=-1)
     parser.add_argument("--temperature", type=float, default=0.7)
     parser.add_argument("--top_k", type=int, default=40)
+    parser.add_argument("--seed", type=int, default=None)
+    
     args = parser.parse_args()
 
     if args.quiet is False:
@@ -33,8 +35,12 @@ def text_generator(state_dict):
     if args.batch_size == -1:
         args.batch_size = 1
     assert args.nsamples % args.batch_size == 0
-
-    seed = random.randint(0, 2147483647)
+    
+    if seed is None:
+        seed = random.randint(0, 2147483647)
+    
+    print('Seed:',seed)
+    
     np.random.seed(seed)
     torch.random.manual_seed(seed)
     torch.cuda.manual_seed(seed)
